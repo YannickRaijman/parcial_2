@@ -9,11 +9,11 @@ public class Cuenta {
 	protected Cliente titular;
 	protected TipoCuenta tipo;
 
-	public Cuenta(String alias, TipoCuenta tipo) {
+	public Cuenta(String alias, Cliente titular, TipoCuenta tipo) {
 		this.saldo = 0;
 		this.alias = alias;
 		this.movimientos = new LinkedList <Movimiento>();
-		this.titular = ;
+		this.titular = titular;
 		this.tipo = tipo;
 	}
 
@@ -65,9 +65,6 @@ public class Cuenta {
 	public boolean retirar (double monto) {
 		//retirar dinero
 		return true;
-	}
-	public static Cuenta crearCuenta () {
-		
 	}
 	
 }

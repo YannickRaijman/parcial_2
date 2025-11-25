@@ -1,17 +1,17 @@
 package parcial_2;
 
-import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 public class CuentaCorriente extends Cuenta{
 	protected double limite;
 
-	public CuentaCorriente(double saldo, String alias, LinkedList<Movimiento> movimientos, Cliente titular,
-			TipoCuenta tipo, double limite) {
-		super(saldo, alias, movimientos, titular, tipo);
-		this.limite = limite;
+
+	public CuentaCorriente(String alias, Cliente titular, TipoCuenta tipo) {
+		super(alias, titular, tipo);
+		this.limite = 1000000;
 	}
+
 
 	@Override
 	public boolean retirar(double monto) {

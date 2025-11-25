@@ -1,14 +1,12 @@
 package parcial_2;
 
-import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 public class CajaAhorro extends Cuenta {
 	
-	public CajaAhorro(double saldo, String alias, LinkedList<Movimiento> movimientos, Cliente titular,
-			TipoCuenta tipo) {
-		super(saldo, alias, movimientos, titular, tipo);
+	public CajaAhorro(String alias, Cliente titular, TipoCuenta tipo) {
+		super(alias, titular, tipo);
 	}
 
 	@Override

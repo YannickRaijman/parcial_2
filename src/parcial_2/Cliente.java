@@ -51,12 +51,48 @@ public class Cliente extends Usuario {
 						return 0;
 					}
 				case 2:
-					
+				    String aliasNuevo = JOptionPane.showInputDialog("Ingrese el alias para la nueva cuenta:");
+				    while (chequearAlias(aliasNuevo) == true) {
+				    	aliasNuevo = JOptionPane.showInputDialog("Alias en uso, ingrese un alias diferente para la nueva cuenta:");
+					}
+				    TipoCuenta[] opcionesCuenta = TipoCuenta.values(); 
+				    int seleccionCuenta = JOptionPane.showOptionDialog(null, 
+				            "Seleccione tipo de cuenta", 
+				            "Crear Cuenta", 
+				            0, 0, null, 
+				            opcionesCuenta,     
+				            opcionesCuenta[0]); 
+				    
+				    TipoCuenta tipoElegido = opcionesCuenta[seleccionCuenta];
+				    if (tipoElegido == TipoCuenta.CA) {
+				        CajaAhorro nuevaCA = new CajaAhorro(aliasNuevo, this, TipoCuenta.CA);
+				        this.cuentas.add(nuevaCA);
+				        JOptionPane.showMessageDialog(null, "Caja de Ahorro creada con éxito!");
+				    } else if (tipoElegido == TipoCuenta.CC) {				        
+				        CuentaCorriente nuevaCC = new CuentaCorriente(aliasNuevo, this, TipoCuenta.CC);
+				        this.cuentas.add(nuevaCC);
+				        JOptionPane.showMessageDialog(null, "Cuenta Corriente creada con éxito!");
+				    }
+				   return menu(); 
 				case 3:
 					return 0;
 				}
 			} while (seleccion != 3);
 			return 0;
+		}
+		
+		public static boolean chequearAlias(String aliasChequear) {
+		    for (Usuario usuario : Usuario.getUsuarios()) {
+		        if (usuario.getRol() == RolUsuario.CLIENTE) {     
+		            Cliente cliente = (Cliente) usuario;		            
+		            for (Cuenta cuenta : cliente.getCuentas()) {
+		                if (cuenta.getAlias().equals(aliasChequear)) {
+		                    return true;
+		                }
+		            }
+		        }
+		    }
+		    return false; // Nadie tiene este alias
 		}
 		
 		
