@@ -126,9 +126,9 @@ public abstract class Usuario {
 	    return valor;
 	}
 	
-	public int menu () {
+	public Cuenta menu () {
 		//menu
-		return 0;
+		return null;
 	}
 	
 	

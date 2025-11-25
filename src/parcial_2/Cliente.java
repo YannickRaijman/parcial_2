@@ -27,7 +27,7 @@ public class Cliente extends Usuario {
 		}
 
 		@Override
-		public int menu() {
+		public Cuenta menu() {
 			String [] opciones = {"Ver cuentas", "Seleccionar cuenta", "Crear cuenta", "Salir"};
 			int seleccion;
 			do {
@@ -39,16 +39,16 @@ public class Cliente extends Usuario {
 					} else {
 						JOptionPane.showMessageDialog(null, toString());
 					}
-					return 0;
+					return null;
 				case 1:
 					if (!this.cuentas.isEmpty()) {
 						int tamanoArray = this.cuentas.size();
 						Cuenta [] arrayCuentas = this.cuentas.toArray(new Cuenta [tamanoArray]);
-						int cuentaElegida = (int)JOptionPane.showInputDialog(null, "Seleccione la cuenta:", "", 0, null, arrayCuentas, arrayCuentas);
+						Cuenta cuentaElegida = (Cuenta)JOptionPane.showInputDialog(null, "Seleccione la cuenta:", "", 0, null, arrayCuentas, arrayCuentas);
 						return cuentaElegida;
 					} else {
 						JOptionPane.showMessageDialog(null, "No posee cuentas");
-						return 0;
+						return null;
 					}
 				case 2:
 				    String aliasNuevo = JOptionPane.showInputDialog("Ingrese el alias para la nueva cuenta:");
@@ -75,10 +75,10 @@ public class Cliente extends Usuario {
 				    }
 				   return menu(); 
 				case 3:
-					return 0;
+					return null;
 				}
 			} while (seleccion != 3);
-			return 0;
+			return null;
 		}
 		
 		public static boolean chequearAlias(String aliasChequear) {
