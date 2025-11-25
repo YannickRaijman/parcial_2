@@ -42,9 +42,8 @@ public class Cliente extends Usuario {
 					return null;
 				case 1:
 					if (!this.cuentas.isEmpty()) {
-						int tamanoArray = this.cuentas.size();
-						Cuenta [] arrayCuentas = this.cuentas.toArray(new Cuenta [tamanoArray]);
-						Cuenta cuentaElegida = (Cuenta)JOptionPane.showInputDialog(null, "Seleccione la cuenta:", "", 0, null, arrayCuentas, arrayCuentas);
+						Cuenta [] arrayCuentas = this.cuentas.toArray(new Cuenta [0]);
+						Cuenta cuentaElegida = (Cuenta)JOptionPane.showInputDialog(null, "Seleccione la cuenta:", "Mis cuentas", 0, null, arrayCuentas, arrayCuentas);
 						return cuentaElegida;
 					} else {
 						JOptionPane.showMessageDialog(null, "No posee cuentas");
