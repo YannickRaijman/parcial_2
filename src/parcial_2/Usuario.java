@@ -126,8 +126,9 @@ public abstract class Usuario {
 	    return valor;
 	}
 	
-	public void menu () {
+	public int menu () {
 		//menu
+		return 0;
 	}
 	
 	

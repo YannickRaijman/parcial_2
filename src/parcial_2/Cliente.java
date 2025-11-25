@@ -23,12 +23,12 @@ public class Cliente extends Usuario {
 
 		@Override
 		public String toString() {
-			return "Cuentas= " + cuentas;
+			return "Cuentas= " + this.cuentas;
 		}
 
 		@Override
-		public void menu() {
-			String [] opciones = {"Ver cuentas", "Seleccionar cuenta", "Salir"};
+		public int menu() {
+			String [] opciones = {"Ver cuentas", "Seleccionar cuenta", "Crear cuenta", "Salir"};
 			int seleccion;
 			do {
 				seleccion = JOptionPane.showOptionDialog(null, "Opciones","", 0,0, null, opciones, opciones[0]);
@@ -39,15 +39,24 @@ public class Cliente extends Usuario {
 					} else {
 						JOptionPane.showMessageDialog(null, toString());
 					}
-					break;
+					return 0;
 				case 1:
-					//Ver como hacer para que cada cuenta sea una opcion, unir github con eclipse asi agilizamos consultas a gemini
-					break;
+					if (!this.cuentas.isEmpty()) {
+						int tamanoArray = this.cuentas.size();
+						Cuenta [] arrayCuentas = this.cuentas.toArray(new Cuenta [tamanoArray]);
+						int cuentaElegida = (int)JOptionPane.showInputDialog(null, "Seleccione la cuenta:", "", 0, null, arrayCuentas, arrayCuentas);
+						return cuentaElegida;
+					} else {
+						JOptionPane.showMessageDialog(null, "No posee cuentas");
+						return 0;
+					}
 				case 2:
 					
-					break;
+				case 3:
+					return 0;
 				}
-			} while (condition);
+			} while (seleccion != 3);
+			return 0;
 		}
 		
 		
