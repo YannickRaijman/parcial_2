@@ -126,7 +126,7 @@ public abstract class Usuario {
 	    return valor;
 	}
 	
-	public Cuenta menu () {
+	public Cuenta menu (Cajero cajero) {
 		//menu
 		return null;
 	}

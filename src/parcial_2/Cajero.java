@@ -44,17 +44,6 @@ public class Cajero {
 		return "Cajero [dineroDisp=" + dineroDisp + ", estado=" + estado + "]";
 	}
 	
-	public void extraerDinero(Cuenta cuentaCliente, double monto) {
-        if (this.dineroDisp < monto) {
-            JOptionPane.showMessageDialog(null, "ERROR: El cajero no posee suficiente dinero");
-        }else {
-	        if (cuentaCliente.retirar(monto) == true) {
-	            this.dineroDisp -= monto;
-	            JOptionPane.showMessageDialog(null, "Ya puede reitrar su dinero");
-	            this.movimientosCajero.add(new Movimiento(TipoMovimiento.RETIRO, monto));
-	        }
-        }
-    }
 	public void cargarCajero() {
 		this.setDineroDisp(1000000);
 		this.movimientosCajero.add(new Movimiento(TipoMovimiento.CARGADECAJERO, 1000000));
@@ -72,5 +61,36 @@ public class Cajero {
 			break;
 		}
 	}
+	
+	public void depositarDinero(Cuenta cuentaCliente, double monto) {
+        if (this.estado == EstadoCajero.FUERADESERVICIO) {
+            JOptionPane.showMessageDialog(null, "El cajero está fuera de servicio.");
+            return;
+        }
+        if (monto <= 0) {
+            JOptionPane.showMessageDialog(null, "El monto debe ser positivo.");
+            return;
+        }
+        this.dineroDisp += monto;
+        this.movimientosCajero.add(new Movimiento(TipoMovimiento.DEPOSITO, monto));
+        cuentaCliente.depositar(monto); 
+        JOptionPane.showMessageDialog(null, "Depósito realizado con éxito.");
+    }
+	
+	public void extraerDinero(Cuenta cuentaCliente, double monto) {
+        if (this.estado == EstadoCajero.FUERADESERVICIO) {
+            JOptionPane.showMessageDialog(null, "El cajero está fuera de servicio.");
+            return;
+        }
+        if (this.dineroDisp < monto) {
+            JOptionPane.showMessageDialog(null, "ERROR: El cajero no posee suficiente dinero.");
+        } else {
+            if (cuentaCliente.retirar(monto)) {
+                this.dineroDisp -= monto;
+                this.movimientosCajero.add(new Movimiento(TipoMovimiento.RETIRO, monto));
+                JOptionPane.showMessageDialog(null, "Retire su dinero.");
+            }
+        }
+    }
 	
 }
