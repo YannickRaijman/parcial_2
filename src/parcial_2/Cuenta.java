@@ -64,7 +64,7 @@ public class Cuenta {
 	
 	public boolean retirar (double monto) {
 		//retirar dinero
-		return true;
+		return false;
 	}
 	
 	public void depositar(double monto) {
