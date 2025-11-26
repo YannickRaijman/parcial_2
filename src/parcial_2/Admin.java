@@ -10,7 +10,7 @@ public class Admin extends Usuario {
 	}
 	
 	@Override
-    public Cuenta menu(Cajero cajero) {
+    public void menu(Cajero cajero) {
         String[] opciones = {"Crear Empleado", "Eliminar Empleado", "Lista de Empleados", "Salir"};
         int seleccion;
 
@@ -30,10 +30,8 @@ public class Admin extends Usuario {
                 listaDeEmpleados();
                 break;
             case 3:
-                return null;
             }
         } while (seleccion != 3);
-        return null;
     }
 
     private void crearEmpleado() {

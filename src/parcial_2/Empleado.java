@@ -10,7 +10,7 @@ public class Empleado extends Usuario {
 	}
 		
 	@Override
-    public Cuenta menu(Cajero cajero) {
+    public void menu(Cajero cajero) {
         String[] opciones = {"Ver dinero disponible", "Cargar Cajero", "Cambiar Estado", "Ver Movimientos Cajero","Salir"};
         int seleccion;
         
@@ -36,10 +36,8 @@ public class Empleado extends Usuario {
                 JOptionPane.showMessageDialog(null, cajero.getMovimientosCajero());
                 break;
             case 4:
-            	return null;
             }
         } while (seleccion != 4);
-        return null;
     }
 
 }

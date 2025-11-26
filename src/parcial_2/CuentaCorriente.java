@@ -11,21 +11,18 @@ public class CuentaCorriente extends Cuenta{
 		super(alias, titular, tipo);
 		this.limite = 1000000;
 	}
-
-
+	
 	@Override
 	public boolean retirar(double monto) {
-	 	if ((this.saldo - monto) < this.limite) {
-			this.saldo -= monto;
-			this.movimientos.add(new Movimiento(TipoMovimiento.RETIRO, monto));
-			return true;
-		} else {
-			JOptionPane.showMessageDialog(null,"ERROR, el monto a retirar es mayor al limite permitido de la cuenta");
-			return false;
-		}
+	    if ((this.saldo + this.limite) >= monto) {
+	        this.saldo -= monto;
+	        this.movimientos.add(new Movimiento(TipoMovimiento.RETIRO, monto));
+	        return true;
+	    } else {
+	        JOptionPane.showMessageDialog(null,"ERROR, fondos insuficientes (supera el límite de descubierto)");
+	        return false;
+	    }
 	}
-	
-	
 	
 
 }
