@@ -59,7 +59,7 @@ public class Cuenta {
 
 	@Override
     public String toString() {
-        return "Alias: " + alias + " ($" + saldo + ") - " + tipo;
+        return "Alias: " + alias + " ($" + saldo + ") - " + tipo + "\n";
     }
 	
 	public boolean retirar (double monto) {

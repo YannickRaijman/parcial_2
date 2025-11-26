@@ -31,7 +31,7 @@ public class Cliente extends Usuario {
 			String [] opciones = {"Ver cuentas", "Seleccionar cuenta", "Crear cuenta", "Salir"};
 			int seleccion;
 			do {
-				seleccion = JOptionPane.showOptionDialog(null, "Opciones","", 0,0, null, opciones, opciones[0]);
+				seleccion = JOptionPane.showOptionDialog(null, "Bienvenido " + this.nombre,"", 0,0, null, opciones, opciones[0]);
 				switch (seleccion) {
 				case 0:
 					if (this.cuentas.isEmpty()) {
@@ -39,7 +39,7 @@ public class Cliente extends Usuario {
 					} else {
 						JOptionPane.showMessageDialog(null, toString());
 					}
-					return null;
+					return menu(cajero);
 				case 1:
 			        if (!this.cuentas.isEmpty()) {
 			            Cuenta[] arrayCuentas = this.cuentas.toArray(new Cuenta[0]);

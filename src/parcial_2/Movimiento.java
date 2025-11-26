@@ -39,7 +39,7 @@ public class Movimiento {
 
 	@Override
 	public String toString() {
-		return fecha.toString() + "  " + tipo + "  $" + monto;
+		return fecha.toString() + "  " + tipo + "  $" + monto + "\n";
 	}
 	
 	
