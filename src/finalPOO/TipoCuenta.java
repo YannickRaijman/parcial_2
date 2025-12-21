@@ -1,5 +1,5 @@
 package finalPOO;
 
 public enum TipoCuenta {
-	CA, CC
+	CA, CC, CI
 }

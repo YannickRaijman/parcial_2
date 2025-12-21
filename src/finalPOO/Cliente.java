@@ -73,7 +73,11 @@ public class Cliente extends Usuario {
 				        CuentaCorriente nuevaCC = new CuentaCorriente(aliasNuevo, this, TipoCuenta.CC);
 				        this.cuentas.add(nuevaCC);
 				        JOptionPane.showMessageDialog(null, "Cuenta Corriente creada con éxito!");
-				    }
+				    } else if (tipoElegido == TipoCuenta.CI) {				        
+				        CuentaInversion nuevaCI = new CuentaInversion(aliasNuevo, this, TipoCuenta.CI);
+				        this.cuentas.add(nuevaCI);
+				        JOptionPane.showMessageDialog(null, "Cuenta de Inversion creada con éxito!");
+					}
 				   break;
 				case 3:
 				}
@@ -97,32 +101,58 @@ public class Cliente extends Usuario {
 		    return false; // Nadie tiene este alias
 		}
 		public void menuCuenta(Cuenta cuentaSeleccionada, Cajero cajero) {
-	        String[] opciones = {"Ver Saldo", "Depositar", "Extraer", "Transferir", "Ver Movimientos", "Volver"};
-	        int seleccion;
-	        do {
-	            seleccion = JOptionPane.showOptionDialog(null, 
-	                    "Cuenta: " + cuentaSeleccionada.getAlias(), 
-	                    "Operaciones", 0, 0, null, opciones, opciones[0]);
-	            switch (seleccion) {
-	                case 0:
-	                    JOptionPane.showMessageDialog(null, "Saldo actual: $" + cuentaSeleccionada.getSaldo());
-	                    break;
-	                case 1:
-	                    realizarDeposito(cuentaSeleccionada, cajero);
-	                    break;
-	                case 2:
-	                    realizarExtraccion(cuentaSeleccionada, cajero);
-	                    break;
-	                case 3:
-	                    realizarTransferencia(cuentaSeleccionada);
-	                    break;
-	                case 4:
-	                    mostrarMovimientos(cuentaSeleccionada);
-	                    break;
-	                case 5:
-	                    return;
-	            }
-	        } while (seleccion != 5);
+		    boolean esInversion = false;
+		    if (cuentaSeleccionada.getTipo() == TipoCuenta.CI) {
+		        esInversion = true;
+		    }
+		    
+		    String[] opciones;
+		    if (esInversion) {
+		        opciones = new String[]{"Ver Saldo", "Depositar", "Extraer", "Transferir", "Ver Movimientos", "Nueva Inversión", "Mis Inversiones", "Simular Días", "Volver"};
+		    } else {
+		        opciones = new String[]{"Ver Saldo", "Depositar", "Extraer", "Transferir", "Ver Movimientos", "Volver"};
+		    }
+
+		    int seleccion;
+		    do {
+		        seleccion = JOptionPane.showOptionDialog(null, 
+		                "Cuenta: " + cuentaSeleccionada.getAlias(), 
+		                "Operaciones", 0, 0, null, opciones, opciones[0]);
+
+		        switch (seleccion) {
+		            case 0: 
+		                JOptionPane.showMessageDialog(null, "Saldo actual: $" + cuentaSeleccionada.getSaldo());
+		                break;
+		            case 1: 
+		                realizarDeposito(cuentaSeleccionada, cajero); 
+		                break;
+		            case 2: 
+		                realizarExtraccion(cuentaSeleccionada, cajero);
+		                break;
+		            case 3: 
+		                realizarTransferencia(cuentaSeleccionada); 
+		                break;
+		            case 4: 
+		                mostrarMovimientos(cuentaSeleccionada);
+		                break;
+		            case 5: 
+		            	crearNuevaInversion(cuentaSeleccionada);
+		                break;
+		            case 6:
+		            	mostrarEstadoInversiones(cuentaSeleccionada);
+		                break;
+		            case 7:
+		            	String input;
+		            	do {
+		            		input = JOptionPane.showInputDialog("¿Cuántos días desea avanzar?");
+		            		int dias = Integer.parseInt(input);
+		            		cuentaSeleccionada.simularPasoDelTiempo(dias);
+						} while (esNumero(input) == false);
+		                break;
+		            case 8:
+		                return;
+		        }
+		    } while (seleccion != (esInversion ? 8 : 5));
 	    }
 		
 		private void realizarDeposito(Cuenta cuenta, Cajero cajero) {
@@ -204,8 +234,36 @@ public class Cliente extends Usuario {
 	        }
 	    }
 		
-		
-		
-		
-		
+		private void crearNuevaInversion(CuentaInversion cuenta) {
+		    String ingreso = JOptionPane.showInputDialog("Monto a invertir (Disponible: $" + cuenta.getSaldo() + "):");
+		    if (esNumero(ingreso)) {
+		        double monto = Double.parseDouble(ingreso);
+		        
+		        NivelRiesgo[] riesgos = NivelRiesgo.values();
+		        int seleccionRiesgo = JOptionPane.showOptionDialog(null, "Seleccione el riesgo de la inversion", "Riesgo", 0, 0, null, riesgos, riesgos[0]);
+		        cuenta.invertirDinero(monto, riesgos[seleccionRiesgo]);
+		    } else {
+		        JOptionPane.showMessageDialog(null, "Monto inválido");
+		    }
+		}
+
+		private void mostrarEstadoInversiones(CuentaInversion cuenta) {
+		    if (cuenta.getInversiones().isEmpty()) {
+		        JOptionPane.showMessageDialog(null, "No posee inversiones activas.");
+		    }else { 
+			    Inversion[] arrayInv = cuenta.getInversiones().toArray(new Inversion[0]);
+			    
+			    Inversion elegida = (Inversion) JOptionPane.showInputDialog(null, 
+			            "Seleccione inversión para ver detalle:", 
+			            "Portafolio", 0, null, arrayInv, arrayInv[0]);
+			    
+			    if (elegida != null) {
+			        String historial = "Historial de Rendimientos:\n";
+			        for (String linea : elegida.getHistorialDiario()) {
+			            historial = historial + linea + "\n";
+			        }
+			        JOptionPane.showMessageDialog(null, historial);
+			    }
+			}
+		}
 }
