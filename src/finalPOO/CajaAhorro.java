@@ -1,4 +1,4 @@
-package parcial_2;
+package finalPOO;
 
 
 import javax.swing.JOptionPane;

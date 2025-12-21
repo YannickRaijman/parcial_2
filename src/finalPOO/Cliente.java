@@ -1,4 +1,4 @@
-package parcial_2;
+package finalPOO;
 
 import java.util.LinkedList;
 
@@ -81,6 +81,9 @@ public class Cliente extends Usuario {
 		}
 		
 		public static boolean chequearAlias(String aliasChequear) {
+			if (aliasChequear == null || aliasChequear.isEmpty()) {
+				return true;
+			}
 		    for (Usuario usuario : Usuario.getUsuarios()) {
 		        if (usuario.getRol() == RolUsuario.CLIENTE) {     
 		            Cliente cliente = (Cliente) usuario;		            
@@ -151,7 +154,6 @@ public class Cliente extends Usuario {
 	        String ingreso = JOptionPane.showInputDialog("Monto a extraer:");
 	        if (esNumero(ingreso)) {
 	            double monto = Double.parseDouble(ingreso);
-	            // Llamamos al CAJERO estático (Lógico -> Físico)
 	            cajero.extraerDinero(cuenta, monto);
 	        } else {
 	            JOptionPane.showMessageDialog(null, "Monto inválido");

@@ -1,23 +1,23 @@
-package parcial_2;
+package finalPOO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Movimiento {
-	protected LocalDate fecha;
+	protected LocalDateTime fecha;
 	protected TipoMovimiento tipo;
 	protected double monto;
 	
 	public Movimiento(TipoMovimiento tipo, double monto) {
-		this.fecha = LocalDate.now();
+		this.fecha = LocalDateTime.now();
 		this.tipo = tipo;
 		this.monto = monto;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 
