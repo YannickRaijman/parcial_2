@@ -136,19 +136,31 @@ public class Cliente extends Usuario {
 		                mostrarMovimientos(cuentaSeleccionada);
 		                break;
 		            case 5: 
-		            	crearNuevaInversion(cuentaSeleccionada);
+		                if (esInversion) {
+		                    CuentaInversion cuentaInv = (CuentaInversion) cuentaSeleccionada;
+		                    crearNuevaInversion(cuentaInv);
+		                }
 		                break;
 		            case 6:
-		            	mostrarEstadoInversiones(cuentaSeleccionada);
+		                if (esInversion) {
+		                    CuentaInversion cuentaInv = (CuentaInversion) cuentaSeleccionada;
+		                    mostrarEstadoInversiones(cuentaInv);
+		                }
 		                break;
 		            case 7:
-		            	String input;
-		            	do {
-		            		input = JOptionPane.showInputDialog("¿Cuántos días desea avanzar?");
-		            		int dias = Integer.parseInt(input);
-		            		cuentaSeleccionada.simularPasoDelTiempo(dias);
-						} while (esNumero(input) == false);
+		                if (esInversion) {
+		                    String input;
+		                    do {
+		                        input = JOptionPane.showInputDialog("¿Cuántos días desea avanzar?");
+		                        if (esNumero(input)) {
+		                             int dias = Integer.parseInt(input);
+		                             CuentaInversion cuentaInv = (CuentaInversion) cuentaSeleccionada;
+		                             cuentaInv.simularDias(dias);
+		                        }
+		                    } while (!esNumero(input));
+		                }
 		                break;
+
 		            case 8:
 		                return;
 		        }
